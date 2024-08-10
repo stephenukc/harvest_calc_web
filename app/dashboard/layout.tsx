@@ -60,16 +60,16 @@ export default function DashboardLayout({
                   <UserIcon />
                   <DropdownLabel>My profile</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="settings">
+                <DropdownItem href="/settings">
                   <Cog8ToothIcon />
                   <DropdownLabel>Settings</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="privacy-policy">
+                <DropdownItem href="/privacy-policy">
                   <ShieldCheckIcon />
                   <DropdownLabel>Privacy policy</DropdownLabel>
                 </DropdownItem>
-                <DropdownItem href="share-feedback">
+                <DropdownItem href="/share-feedback">
                   <LightBulbIcon />
                   <DropdownLabel>Share feedback</DropdownLabel>
                 </DropdownItem>
@@ -117,38 +117,38 @@ export default function DashboardLayout({
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
-              <SidebarItem href="home">
+              <SidebarItem href="/dashboard/home">
                 <HomeIcon />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
             <SidebarSection>
               <SidebarHeading>Agricultural Data</SidebarHeading>
-              <SidebarItem href="crop-farming">
+              <SidebarItem href="/dashboard/crop-farming">
                 <SunIcon />
                 <SidebarLabel>Crop Farming</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="livestock-farming">
+              <SidebarItem href="/dashboard/livestock-farming">
                 <SunIcon />
                 <SidebarLabel>Livestock Farming</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="mixed-farming">
+              <SidebarItem href="/dashboard/mixed-farming">
                 <SunIcon />
                 <SidebarLabel>Mixed Farming</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="horticulture">
+              <SidebarItem href="/dashboard/horticulture">
                 <SunIcon />
                 <SidebarLabel>Horticulture</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="agroforestry">
+              <SidebarItem href="/dashboard/agroforestry">
                 <SunIcon />
                 <SidebarLabel>Agroforestry</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="organic-farming">
+              <SidebarItem href="/dashboard/organic-farming">
                 <SunIcon />
                 <SidebarLabel>Organic Farming</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="precision-farming">
+              <SidebarItem href="/dashboard/precision-farming">
                 <SunIcon />
                 <SidebarLabel>Precision Farming</SidebarLabel>
               </SidebarItem>
