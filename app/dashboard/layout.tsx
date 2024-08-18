@@ -44,7 +44,9 @@ import {
 
 export default function DashboardLayout({
   children,
-}: React.ComponentPropsWithoutRef<"div">) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <SidebarLayout
       navbar={
