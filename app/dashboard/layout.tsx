@@ -125,34 +125,25 @@ export default function DashboardLayout({
               </SidebarItem>
             </SidebarSection>
             <SidebarSection>
-              <SidebarHeading>Agricultural Data</SidebarHeading>
-              <SidebarItem href="/dashboard/crop-farming">
+              <SidebarHeading>Planting Data</SidebarHeading>
+              <SidebarItem href="/dashboard/planting-records">
                 <SunIcon />
-                <SidebarLabel>Crop Farming</SidebarLabel>
+                <SidebarLabel>Planting Records</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/dashboard/livestock-farming">
+              <SidebarItem href="/dashboard/harvest-records">
                 <SunIcon />
-                <SidebarLabel>Livestock Farming</SidebarLabel>
+                <SidebarLabel>Harvest Records</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/dashboard/mixed-farming">
+            </SidebarSection>
+            <SidebarSection>
+              <SidebarHeading>Breeding Data</SidebarHeading>
+              <SidebarItem href="/dashboard/breeding-records">
                 <SunIcon />
-                <SidebarLabel>Mixed Farming</SidebarLabel>
+                <SidebarLabel>Breeding Records</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/dashboard/horticulture">
+              <SidebarItem href="/dashboard/processing-records">
                 <SunIcon />
-                <SidebarLabel>Horticulture</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/dashboard/agroforestry">
-                <SunIcon />
-                <SidebarLabel>Agroforestry</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/dashboard/organic-farming">
-                <SunIcon />
-                <SidebarLabel>Organic Farming</SidebarLabel>
-              </SidebarItem>
-              <SidebarItem href="/dashboard/precision-farming">
-                <SunIcon />
-                <SidebarLabel>Precision Farming</SidebarLabel>
+                <SidebarLabel>Processing Records</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
             <SidebarSpacer />
