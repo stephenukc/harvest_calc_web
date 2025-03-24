@@ -6,7 +6,7 @@ import { Input } from "@/components/input";
 export default function CreateBusiness() {
   return (
     <main>
-      <Heading>Complete Business Profile</Heading>
+      <Heading>Create Business Profile</Heading>
       <form action="" className="py-8">
         <Fieldset aria-label="Create business profile information">
           <FieldGroup>

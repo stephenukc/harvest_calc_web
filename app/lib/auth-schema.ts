@@ -24,6 +24,7 @@ export const SignupFormSchema = z.object({
     })
     .regex(/[0-9]/, { message: "Password must contain at least one number." })
     .trim(),
+  account_type: z.string().trim(),
 });
 
 export const SigninFormSchema = z.object({
