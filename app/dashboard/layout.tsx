@@ -41,6 +41,7 @@ import {
   SunIcon,
   UserGroupIcon,
 } from "@heroicons/react/20/solid";
+import { logout } from "@/app/actions/auth";
 
 export default function DashboardLayout({
   children,
@@ -188,7 +189,7 @@ export default function DashboardLayout({
                   <DropdownLabel>Share feedback</DropdownLabel>
                 </DropdownItem>
                 <DropdownDivider />
-                <DropdownItem href="/logout">
+                <DropdownItem onClick={logout}>
                   <ArrowRightStartOnRectangleIcon />
                   <DropdownLabel>Sign out</DropdownLabel>
                 </DropdownItem>

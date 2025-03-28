@@ -77,26 +77,17 @@ export default function SignupForm() {
             <RadioField>
               <Radio value="individual" />
               <Label>Individual</Label>
-              <Description>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui,
-                dolor?.
-              </Description>
+              <Description>Scholars, Retailers and Consumers.</Description>
             </RadioField>
             <RadioField>
               <Radio value="farmer" />
               <Label>Farmer</Label>
-              <Description>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
-                nesciunt!
-              </Description>
+              <Description>Farmers.</Description>
             </RadioField>
             <RadioField>
               <Radio value="business" />
               <Label>Business</Label>
-              <Description>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
-                nesciunt!
-              </Description>
+              <Description>Offtakers and Businesses.</Description>
             </RadioField>
           </RadioGroup>
           <Button disabled={pending} type="submit" className="w-full">

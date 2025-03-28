@@ -45,13 +45,14 @@ export const SigninFormSchema = z.object({
     .trim(),
 });
 
-export type FormState =
+export type AuthFormState =
   | {
       errors?: {
         first_name?: string[];
         last_name?: string[];
         email?: string[];
         password?: string[];
+        account_type?: string[];
       };
       message?: string;
     }

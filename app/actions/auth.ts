@@ -1,13 +1,13 @@
 "use server";
 import {
-  FormState,
+  AuthFormState,
   SigninFormSchema,
   SignupFormSchema,
-} from "@/app/lib/auth-schema";
+} from "@/app/lib/schema/auth";
 import { createSession, deleteSession } from "@/app/lib/session";
 import { redirect } from "next/navigation";
 
-export async function signup(state: FormState, formData: FormData) {
+export async function signup(state: AuthFormState, formData: FormData) {
   const validatedFields = SignupFormSchema.safeParse({
     first_name: formData.get("first_name"),
     last_name: formData.get("last_name"),
@@ -82,7 +82,7 @@ export async function signup(state: FormState, formData: FormData) {
   }
 }
 
-export async function signin(state: FormState, formData: FormData) {
+export async function signin(state: AuthFormState, formData: FormData) {
   const validatedFields = SigninFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),

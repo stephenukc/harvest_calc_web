@@ -4,10 +4,7 @@ import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const session = await verifySession();
-  if (!session) {
-    return new Response(null, { status: 401 });
-  }
+  await verifySession();
 
   const refresh = request.cookies.get("refresh_token")?.value;
 
@@ -23,10 +20,10 @@ export async function GET(request: NextRequest) {
       }),
     }
   );
+
   const data = await response.json();
 
   await updateSession(data.access);
-  console.log("WE GOT HERE");
 
   redirect(request.url);
 }
