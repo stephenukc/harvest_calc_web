@@ -76,7 +76,7 @@ export default function SignupForm() {
           <RadioGroup name="account_type" defaultValue="individual">
             <RadioField>
               <Radio value="individual" />
-              <Label>Individual</Label>
+              <Label>Champion</Label>
               <Description>Scholars, Retailers and Consumers.</Description>
             </RadioField>
             <RadioField>

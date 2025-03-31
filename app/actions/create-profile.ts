@@ -26,7 +26,10 @@ export async function createBusiness(
     };
   }
 
-  await verifySession();
+  const session = await verifySession();
+  if (!session.isAuthenticated) {
+    redirect("/auth/signin");
+  }
 
   const { business_name, phone_number, country } = validatedFields.data;
   const access_token = (await cookies()).get("access_token")?.value;

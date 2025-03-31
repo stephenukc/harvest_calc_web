@@ -4,7 +4,10 @@ import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  await verifySession();
+  const session = await verifySession();
+  if (!session.isAuthenticated) {
+    redirect("/auth/signin");
+  }
 
   const refresh = request.cookies.get("refresh_token")?.value;
 

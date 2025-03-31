@@ -74,11 +74,11 @@ export async function signup(state: AuthFormState, formData: FormData) {
   await createSession(signinData.access, signinData.refresh);
 
   if (account_type === "individual") {
-    redirect("/auth/create-individual");
+    redirect("/dashboard/create-individual");
   } else if (account_type === "business") {
-    redirect("/auth/create-business");
+    redirect("/dashboard/create-business");
   } else if (account_type === "farmer") {
-    redirect("/auth/create-farmer");
+    redirect("/dashboard/create-farmer");
   }
 }
 
