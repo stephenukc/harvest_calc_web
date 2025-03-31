@@ -22,7 +22,7 @@ export default async function HarvestRecords() {
   return (
     <>
       <Heading>Harvest Records</Heading>
-      <Table className="mt-4 [--gutter:theme(spacing.6)] lg:[--gutter:theme(spacing.10)]">
+      <Table className="mt-4 [--gutter:--spacing(6)] lg:[--gutter:--spacing(10)]">
         <TableHead>
           <TableRow>
             <TableHeader>Title</TableHeader>
