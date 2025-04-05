@@ -1,3 +1,4 @@
+import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
 import { Link } from "@/components/link";
 import { Heading, Lead, Subheading } from "@/components/text";
@@ -21,36 +22,50 @@ export const metadata = {
 
 const postsPerPage = 5;
 
-function Articles() {
+async function Articles() {
+  const response = await fetch(
+    `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+      type: "blog.BlogPage",
+      fields: ["date", "body", "tags", "intro"].join(","),
+    })}`
+  );
+  const articles: BlogPagesResponse = await response.json();
   return (
     <div className="mt-16 pb-14">
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div
-          key="1"
-          className="relative flex flex-col rounded-3xl bg-white p-2 shadow-md ring-1 shadow-black/5 ring-black/5"
-        >
-          <Image
-            alt="Article Image"
-            src={placeholder}
-            className="aspect-3/2 w-full rounded-2xl object-cover"
-          />
-          <div className="flex flex-1 flex-col p-8">
-            <div className="text-sm/5 text-gray-700">
-              {dayjs("4-04-2025").format("dddd, MMMM D, YYYY")}
-            </div>
-            <div className="mt-2 text-base/7 font-medium">
-              <Link href={`/blog`}>
-                <span className="absolute inset-0" />
-                Lorem ipsum dolor sit amet.
-              </Link>
-            </div>
-            <div className="mt-2 flex-1 text-sm/6 text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
-              animi ad deleniti iure consequuntur illo fugiat atque quos culpa
-              commodi?
+        {articles.items.map((article) => (
+          <div
+            key={article.meta.slug}
+            className="relative flex flex-col rounded-3xl bg-white p-2 shadow-md ring-1 shadow-black/5 ring-black/5"
+          >
+            <Image
+              alt="Article Image"
+              src={placeholder}
+              className="aspect-3/2 w-full rounded-2xl object-cover"
+            />
+            <div className="flex flex-1 flex-col p-8">
+              <div className="text-sm/5 text-gray-700">
+                {dayjs(article.date).format("dddd, MMMM D, YYYY")}
+              </div>
+              <div className="mt-2 text-base/7 font-medium">
+                <Link href={`/blog`}>
+                  <span className="absolute inset-0" />
+                  {article.title}
+                </Link>
+              </div>
+              <div className="mt-2 flex-1 text-sm/6 text-gray-500">
+                {article.intro}
+              </div>
+              <div className="mt-6 flex items-center gap-3">
+                {article.tags.map((tag) => (
+                  <Badge key={tag} color="zinc">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
@@ -152,15 +167,7 @@ function Pagination({ page, category }: { page: number; category?: string }) {
   );
 }
 
-export default function Blog({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  let page = 1;
-
-  let category = "";
-
+export default function Blog() {
   return (
     <>
       <Subheading className="mt-16">Blog</Subheading>
@@ -171,9 +178,7 @@ export default function Blog({
         Stay informed with product updates, company news, and insights on how to
         improve your agricultural practices.
       </Lead>
-      <Categories selected={category} />
       <Articles />
-      <Pagination page={page} category={category} />
     </>
   );
 }
