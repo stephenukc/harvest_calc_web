@@ -91,7 +91,7 @@ export default function SignupForm() {
             </RadioField>
           </RadioGroup>
           <Button disabled={pending} type="submit" className="w-full">
-            {pending ? <Loading /> : "Sign In"}
+            {pending ? <Loading /> : "Sign Up"}
           </Button>
         </FieldGroup>
       </Fieldset>

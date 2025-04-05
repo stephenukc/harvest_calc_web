@@ -1,5 +1,6 @@
 "use client";
 
+import logo from "@/public/images/logo.svg";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -23,12 +24,7 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Harvest Calc</span>
-            <Image
-              alt="Havrvest Calc logo"
-              src="/images/logo.jpeg"
-              width={40}
-              height={40}
-            />
+            <Image alt="Havrvest Calc logo" src={logo} className="size-10" />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -71,12 +67,7 @@ export default function Header() {
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Harvest Calc</span>
-              <Image
-                alt="Havrvest Calc logo"
-                src="/images/logo.jpeg"
-                width={32}
-                height={32}
-              />
+              <Image alt="Havrvest Calc logo" src={logo} className="size-8" />
             </Link>
             <button
               type="button"

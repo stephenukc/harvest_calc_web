@@ -26,6 +26,7 @@ import {
   SidebarSpacer,
 } from "@/components/sidebar";
 import { SidebarLayout } from "@/components/sidebar-layout";
+import logo from "@/public/images/logo.svg";
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronDownIcon,
@@ -38,6 +39,7 @@ import {
   SunIcon,
   UserGroupIcon,
 } from "@heroicons/react/20/solid";
+import Image from "next/image";
 import { getUser } from "../lib/dal";
 
 export default async function DashboardLayout({
@@ -79,7 +81,7 @@ export default async function DashboardLayout({
           <SidebarHeader>
             <Dropdown>
               <DropdownButton as={SidebarItem} className="lg:mb-2.5">
-                <Avatar src="/images/logo.jpeg" square />
+                <Image src={logo} className="size-8" alt="HarvestCalc Logo" />
                 <SidebarLabel>Harvest Calc</SidebarLabel>
                 <ChevronDownIcon />
               </DropdownButton>
