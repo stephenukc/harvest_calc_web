@@ -1,9 +1,15 @@
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownItem,
+  DropdownLabel,
+  DropdownMenu,
+} from "@/components/dropdown";
 import { Link } from "@/components/link";
 import { Heading, Lead, Subheading } from "@/components/text";
 import placeholder from "@/public/images/placeholder.jpg";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   CheckIcon,
   ChevronLeftIcon,
@@ -22,17 +28,29 @@ export const metadata = {
 
 const postsPerPage = 5;
 
-async function Articles() {
-  const response = await fetch(
-    `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
-      type: "blog.BlogPage",
-      fields: ["date", "body", "tags", "intro"].join(","),
-    })}`
-  );
-  const articles: BlogPagesResponse = await response.json();
+async function Articles({ tag }: { tag?: string }) {
+  let articlesResponse;
+  if (!tag) {
+    articlesResponse = await fetch(
+      `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+        type: "blog.BlogPage",
+        fields: ["date", "body", "tags", "intro"].join(","),
+      })}`
+    );
+  } else {
+    articlesResponse = await fetch(
+      `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+        type: "blog.BlogPage",
+        fields: ["date", "body", "tags", "intro"].join(","),
+        tags: tag,
+      })}`
+    );
+  }
+  const articles: BlogPagesResponse = await articlesResponse.json();
+
   return (
-    <div className="mt-16 pb-14">
-      <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
+    <>
+      <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
         {articles.items.map((article) => (
           <div
             key={article.meta.slug}
@@ -67,51 +85,32 @@ async function Articles() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 
-async function Categories({ selected }: { selected?: string }) {
-  let categories = ["One", "Two"];
-
-  if (categories.length === 0) {
-    return;
-  }
-
+async function Tags({ selected }: { selected?: string }) {
+  const response = await fetch(`${process.env.API_BASE_URL}/blog/tags/`);
+  const tags: Tags = await response.json();
   return (
-    <Menu>
-      <MenuButton className="flex items-center justify-between gap-2 font-medium">
-        All categories
+    <Dropdown>
+      <DropdownButton className="mt-12" outline>
+        {tags.tags.find((tag) => tag === selected) || "All Tags"}
         <ChevronUpDownIcon className="size-4 fill-gray-900" />
-      </MenuButton>
-      <MenuItems
-        anchor="bottom start"
-        className="min-w-40 rounded-lg bg-white p-1 shadow-lg ring-1 ring-gray-200 [--anchor-gap:6px] [--anchor-offset:-4px] [--anchor-padding:10px]"
-      >
-        <MenuItem>
-          <Link
-            href="/blog"
-            data-selected={selected === undefined ? true : undefined}
-            className="group grid grid-cols-[1rem_1fr] items-center gap-2 rounded-md px-2 py-1 data-focus:bg-gray-950/5"
-          >
-            <CheckIcon className="hidden size-4 group-data-selected:block" />
-            <p className="col-start-2 text-sm/6">All categories</p>
-          </Link>
-        </MenuItem>
-        {categories.map((category) => (
-          <MenuItem key={category}>
-            <Link
-              href={`/blog?category=${category}`}
-              data-selected={category === selected ? true : undefined}
-              className="group grid grid-cols-[16px_1fr] items-center gap-2 rounded-md px-2 py-1 data-focus:bg-gray-950/5"
-            >
-              <CheckIcon className="hidden size-4 group-data-selected:block" />
-              <p className="col-start-2 text-sm/6">{category}</p>
-            </Link>
-          </MenuItem>
+      </DropdownButton>
+      <DropdownMenu>
+        <DropdownItem href="/blog">
+          {selected === undefined ? <CheckIcon /> : null}
+          <DropdownLabel>All Tags</DropdownLabel>
+        </DropdownItem>
+        {tags.tags.map((tag) => (
+          <DropdownItem key={tag} href={`/blog/?tags=${tag}`}>
+            {tag === selected ? <CheckIcon /> : null}
+            <DropdownLabel>{tag}</DropdownLabel>
+          </DropdownItem>
         ))}
-      </MenuItems>
-    </Menu>
+      </DropdownMenu>
+    </Dropdown>
   );
 }
 
@@ -167,7 +166,13 @@ function Pagination({ page, category }: { page: number; category?: string }) {
   );
 }
 
-export default function Blog() {
+export default async function Blog(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const searchParams = await props.searchParams;
+  let selectedTag =
+    typeof searchParams.tags === "string" ? searchParams.tags : undefined;
+
   return (
     <>
       <Subheading className="mt-16">Blog</Subheading>
@@ -178,7 +183,8 @@ export default function Blog() {
         Stay informed with product updates, company news, and insights on how to
         improve your agricultural practices.
       </Lead>
-      <Articles />
+      <Tags selected={selectedTag} />
+      <Articles tag={selectedTag} />
     </>
   );
 }

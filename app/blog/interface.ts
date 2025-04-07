@@ -24,3 +24,7 @@ interface BlogPagesResponse {
   meta: Meta;
   items: BlogItem[];
 }
+
+interface Tags {
+  tags: string[];
+}
