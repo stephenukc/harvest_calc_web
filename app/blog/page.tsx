@@ -19,6 +19,7 @@ import {
 import { clsx } from "clsx";
 import dayjs from "dayjs";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "Blog",
@@ -26,56 +27,85 @@ export const metadata = {
     "Stay informed with product updates, company news, and insights on how to improve your agricultural practices.",
 };
 
-const postsPerPage = 5;
+const postsPerPage = 20;
 
-async function Articles({ tag }: { tag?: string }) {
-  let articlesResponse;
-  if (!tag) {
-    articlesResponse = await fetch(
-      `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
-        type: "blog.BlogPage",
-        fields: ["date", "body", "tags", "intro"].join(","),
-      })}`
-    );
+async function Posts({ page, tag }: { page: number; tag?: string }) {
+  let response;
+  if (page > 1) {
+    if (!tag) {
+      response = await fetch(
+        `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+          type: "blog.BlogPage",
+          fields: ["date", "tags", "intro"].join(","),
+          offset: `${(page - 1) * 20}`,
+        })}`
+      );
+    } else {
+      response = await fetch(
+        `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+          type: "blog.BlogPage",
+          fields: ["date", "tags", "intro"].join(","),
+          tags: tag,
+          offset: `${(page - 1) * 20}`,
+        })}`
+      );
+    }
   } else {
-    articlesResponse = await fetch(
-      `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
-        type: "blog.BlogPage",
-        fields: ["date", "body", "tags", "intro"].join(","),
-        tags: tag,
-      })}`
-    );
+    if (!tag) {
+      response = await fetch(
+        `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+          type: "blog.BlogPage",
+          fields: ["date", "tags", "intro"].join(","),
+        })}`
+      );
+    } else {
+      response = await fetch(
+        `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+          type: "blog.BlogPage",
+          fields: ["date", "tags", "intro"].join(","),
+          tags: tag,
+        })}`
+      );
+    }
   }
-  const articles: BlogPagesResponse = await articlesResponse.json();
+  const posts: BlogItems = await response.json();
+
+  if (posts.items.length === 0 && (page > 1 || tag)) {
+    notFound();
+  }
+
+  if (posts.items.length === 0) {
+    return <p className="mt-6 text-gray-500">No Posts found.</p>;
+  }
 
   return (
     <>
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {articles.items.map((article) => (
+        {posts.items.map((post) => (
           <div
-            key={article.meta.slug}
+            key={post.meta.slug}
             className="relative flex flex-col rounded-3xl bg-white p-2 shadow-md ring-1 shadow-black/5 ring-black/5"
           >
             <Image
-              alt="Article Image"
+              alt="Post Image"
               src={placeholder}
               className="aspect-3/2 w-full rounded-2xl object-cover"
             />
             <div className="flex flex-1 flex-col p-8">
               <div className="text-sm/5 text-gray-700">
-                {dayjs(article.date).format("dddd, MMMM D, YYYY")}
+                {dayjs(post.date).format("dddd, MMMM D, YYYY")}
               </div>
               <div className="mt-2 text-base/7 font-medium">
-                <Link href={`/blog`}>
+                <Link href={`/blog/${post.meta.slug}`}>
                   <span className="absolute inset-0" />
-                  {article.title}
+                  {post.title}
                 </Link>
               </div>
               <div className="mt-2 flex-1 text-sm/6 text-gray-500">
-                {article.intro}
+                {post.intro}
               </div>
               <div className="mt-6 flex items-center gap-3">
-                {article.tags.map((tag) => (
+                {post.tags.map((tag) => (
                   <Badge key={tag} color="zinc">
                     {tag}
                   </Badge>
@@ -114,26 +144,40 @@ async function Tags({ selected }: { selected?: string }) {
   );
 }
 
-function Pagination({ page, category }: { page: number; category?: string }) {
+async function Pagination({ page, tag }: { page: number; tag?: string }) {
   function url(page: number) {
     let params = new URLSearchParams();
 
-    if (category) params.set("category", category);
+    if (tag) params.set("tags", tag);
     if (page > 1) params.set("page", page.toString());
 
-    return params.size !== 0 ? `/blog?${params.toString()}` : "/blog";
+    return params.size !== 0 ? `/blog/?${params.toString()}` : "/blog";
   }
 
-  let totalPosts = 20;
+  let response;
+  if (!tag) {
+    response = await fetch(
+      `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+        type: "blog.BlogPage",
+        fields: ["date", "tags", "intro"].join(","),
+      })}`
+    );
+  } else {
+    response = await fetch(
+      `${process.env.API_BASE_URL}/blog/pages/?${new URLSearchParams({
+        type: "blog.BlogPage",
+        fields: ["date", "tags", "intro"].join(","),
+        tags: tag,
+      })}`
+    );
+  }
+  const posts: BlogItems = await response.json();
+  const totalPosts = posts.meta.total_count;
   let hasPreviousPage = page - 1;
   let previousPageUrl = hasPreviousPage ? url(page - 1) : "";
   let hasNextPage = page * postsPerPage < totalPosts;
   let nextPageUrl = hasNextPage ? url(page + 1) : "";
   let pageCount = Math.ceil(totalPosts / postsPerPage);
-
-  if (pageCount < 2) {
-    return;
-  }
 
   return (
     <div className="mt-6 flex items-center justify-between gap-2">
@@ -170,6 +214,12 @@ export default async function Blog(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const searchParams = await props.searchParams;
+  let page =
+    "page" in searchParams
+      ? typeof searchParams.page === "string" && parseInt(searchParams.page) > 1
+        ? parseInt(searchParams.page)
+        : notFound()
+      : 1;
   let selectedTag =
     typeof searchParams.tags === "string" ? searchParams.tags : undefined;
 
@@ -184,7 +234,8 @@ export default async function Blog(props: {
         improve your agricultural practices.
       </Lead>
       <Tags selected={selectedTag} />
-      <Articles tag={selectedTag} />
+      <Posts page={page} tag={selectedTag} />
+      <Pagination page={page} tag={selectedTag} />
     </>
   );
 }

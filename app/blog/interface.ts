@@ -20,7 +20,7 @@ interface BlogItem {
   tags: string[];
 }
 
-interface BlogPagesResponse {
+interface BlogItems {
   meta: Meta;
   items: BlogItem[];
 }
