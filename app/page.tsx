@@ -1,12 +1,13 @@
+import { getUser } from "@/app/lib/dal";
 import { Link } from "@/components/link";
-import MainLayout from "@/components/main-layout";
-import { Metadata } from "next";
-import Image from "next/image";
+import MainLayout from "@/components/nav/main-layout";
 import {
   BanknotesIcon,
   MapPinIcon,
   PresentationChartLineIcon,
 } from "@heroicons/react/24/outline";
+import { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Home - HarvestCalc",
@@ -230,9 +231,10 @@ function CTA() {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const user: User | null = await getUser();
   return (
-    <MainLayout>
+    <MainLayout user={user}>
       <Hero />
       <Solution />
       <Features />

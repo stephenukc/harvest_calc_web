@@ -60,15 +60,8 @@ export default async function BlogPost(props: {
         </div>
         <div className="text-gray-700">
           <div className="max-w-2xl xl:mx-auto">
-            {/* {post.mainImage && (
-              <img
-                alt={post.mainImage.alt || ""}
-                src={image(post.mainImage).size(2016, 1344).url()}
-                className="mb-10 aspect-3/2 w-full rounded-2xl object-cover shadow-xl"
-              />
-            )} */}
             <article
-              className="prose lg:prose-xl"
+              className="prose lg:prose-xl prose-img:rounded-xl"
               dangerouslySetInnerHTML={{ __html: post.items[0].body }}
             ></article>
             <div className="mt-10">

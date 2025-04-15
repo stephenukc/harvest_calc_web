@@ -117,7 +117,7 @@ export async function signin(state: AuthFormState, formData: FormData) {
 
   await createSession(data.access, data.refresh);
 
-  redirect("/dashboard/home");
+  redirect("/dashboard");
 }
 
 export async function logout() {

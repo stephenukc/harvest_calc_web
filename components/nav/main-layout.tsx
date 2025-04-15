@@ -1,20 +1,35 @@
 "use client";
 
-import logo from "@/public/images/logo.svg";
+import { logout } from "@/app/actions/auth";
+import { Avatar } from "@/components/avatar";
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownDivider,
+  DropdownItem,
+  DropdownLabel,
+  DropdownMenu,
+} from "@/components/dropdown";
+import logo from "@/public/images/logo-wide.svg";
 import * as Headless from "@headlessui/react";
+import {
+  ArrowRightStartOnRectangleIcon,
+  HomeModernIcon,
+  UserIcon,
+} from "@heroicons/react/16/solid";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
-import Footer from "./footer";
-import { Link } from "./link";
-import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from "./navbar";
+import Footer from "../footer";
+import { Link } from "../link";
+import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from "../navbar";
 import {
   Sidebar,
   SidebarBody,
   SidebarHeader,
   SidebarItem,
   SidebarSection,
-} from "./sidebar";
+} from "../sidebar";
 
 const navigation = [
   { label: "Home", url: "/" },
@@ -68,9 +83,11 @@ function MobileSidebar({
 }
 
 export default function MainLayout({
+  user,
   children,
 }: Readonly<{
   children: React.ReactNode;
+  user: User | null;
 }>) {
   let [showSidebar, setShowSidebar] = useState(false);
   const pathname = usePathname();
@@ -81,7 +98,11 @@ export default function MainLayout({
         <Sidebar>
           <SidebarHeader>
             <Link href="/">
-              <Image alt="HavrvestCalc logo" src={logo} className="size-10" />
+              <Image
+                alt="HavrvestCalc logo"
+                src={logo}
+                className="h-10 w-auto"
+              />
             </Link>
           </SidebarHeader>
           <SidebarBody>
@@ -109,22 +130,60 @@ export default function MainLayout({
           <Navbar>
             <NavbarSection>
               <Link href="/" className="max-lg:hidden">
-                <Image alt="HavrvestCalc logo" src={logo} className="size-10" />
+                <Image
+                  alt="HavrvestCalc logo"
+                  src={logo}
+                  className="h-10 w-auto"
+                />
               </Link>
             </NavbarSection>
             <NavbarSpacer />
             <NavbarSection className="max-lg:hidden">
               {navigation.map(({ label, url }) => (
-                <NavbarItem key={label} href={url} current={url === pathname}>
+                <NavbarItem
+                  key={label}
+                  href={url}
+                  current={
+                    url === pathname ||
+                    (url !== "/" && pathname.startsWith(url))
+                  }
+                >
                   {label}
                 </NavbarItem>
               ))}
             </NavbarSection>
             <NavbarSpacer />
             <NavbarSection>
-              <NavbarItem href="/auth/signin">
-                Log in <span aria-hidden="true">&rarr;</span>
-              </NavbarItem>
+              {user && user.first_name ? (
+                <Dropdown>
+                  <DropdownButton as={NavbarItem}>
+                    <Avatar
+                      initials={`${user.first_name[0]}${user.last_name[0]}`}
+                      className="size-10"
+                      square
+                    />
+                  </DropdownButton>
+                  <DropdownMenu className="min-w-64" anchor="top start">
+                    <DropdownItem href="/dashboard">
+                      <HomeModernIcon />
+                      <DropdownLabel>Dashboard</DropdownLabel>
+                    </DropdownItem>
+                    <DropdownItem href="/dashboard/profile">
+                      <UserIcon />
+                      <DropdownLabel>My profile</DropdownLabel>
+                    </DropdownItem>
+                    <DropdownDivider />
+                    <DropdownItem onClick={logout}>
+                      <ArrowRightStartOnRectangleIcon />
+                      <DropdownLabel>Sign out</DropdownLabel>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              ) : (
+                <NavbarItem href="/auth/signin">
+                  Log in <span aria-hidden="true">&rarr;</span>
+                </NavbarItem>
+              )}
             </NavbarSection>
           </Navbar>
         </div>

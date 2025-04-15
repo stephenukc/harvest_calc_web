@@ -15,9 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BreedingRecords() {
-  const data = await fetch(`http://localhost:8000/farms/breeding-records`, {
-    cache: "no-store",
-  });
+  const data = await fetch(`http://localhost:8000/farms/breeding-records`);
   const breedingRecords = await data.json();
   return (
     <>
