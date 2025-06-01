@@ -1,6 +1,7 @@
 import { getUser } from "@/app/lib/dal";
 import { Link } from "@/components/link";
 import MainLayout from "@/components/nav/main-layout";
+import hero from "@/public/images/hero.jpg";
 import {
   BanknotesIcon,
   MapPinIcon,
@@ -50,36 +51,18 @@ const features = [
 
 function Hero() {
   return (
-    <div className="relative isolate overflow-hidden bg-white pt-14">
-      <svg
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-      >
-        <defs>
-          <pattern
-            x="50%"
-            y={-1}
-            id="0787a7c5-978c-4f66-83c7-11c213f99cb7"
-            width={200}
-            height={200}
-            patternUnits="userSpaceOnUse"
-          >
-            <path d="M.5 200V.5H200" fill="none" />
-          </pattern>
-        </defs>
-        <rect
-          fill="url(#0787a7c5-978c-4f66-83c7-11c213f99cb7)"
-          width="100%"
-          height="100%"
-          strokeWidth={0}
-        />
-      </svg>
+    <div className="relative isolate overflow-hidden bg-black pt-14">
       <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 sm:pb-32 lg:flex lg:px-8 lg:py-40">
+        <Image
+          src={hero}
+          alt="Farmer and analyst"
+          className="absolute inset-0 -z-10 size-full object-cover opacity-50"
+        />
         <div className="mx-auto max-w-2xl lg:mx-0 lg:shrink-0 lg:pt-8">
-          <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl">
+          <h1 className="mt-10 text-5xl font-semibold tracking-tight text-pretty text-gray-50 sm:text-7xl">
             Powering the Future of Agriculture
           </h1>
-          <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
+          <p className="mt-8 text-lg font-medium text-pretty text-gray-100 sm:text-xl/8">
             HarvestCalc is revolutionizing agriculture by connecting farmers
             with guaranteed buyers through data-driven technology. Our platform
             predicts harvest yields, optimizes supply chains, and ensures fair
@@ -94,7 +77,7 @@ function Hero() {
             </Link>
             <Link
               href="/company"
-              className="text-sm/6 font-semibold text-gray-900"
+              className="text-sm/6 font-semibold text-gray-50"
             >
               Learn more <span aria-hidden="true">→</span>
             </Link>
@@ -123,8 +106,8 @@ function Solution() {
     <div className="bg-primary-900 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">
-            Our Solution
+          <h2 className="text-2xl/10 font-semibold tracking-wide tes text-pretty text-white sm:text-4xl/12">
+            Empowering Farmers. Transforming Supply Chains. Feeding the Future.
           </h2>
           <p className="mt-6 text-lg/8 text-gray-300">
             Over 70% of Nigeria&apos;s population relies on agriculture, yet
@@ -160,15 +143,21 @@ function Solution() {
 
 function Features() {
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-white pt-24 pb-8 sm:pt-32 sm:pb-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">
-            Why Choose HarvestCalc?
+            Welcome to HarvestCalc
           </h2>
           <p className="mt-6 text-lg/8 text-gray-600">
-            Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam
-            voluptatum cupiditate veritatis in accusamus quisquam.
+            Africa&apos;s most dynamic agri-tech platform built to connect
+            farmers directly to markets, boost productivity, reduce post-harvest
+            losses, and unlock new income streams.
+          </p>
+          <p className="mt-6 text-lg/8 text-gray-600">
+            Whether you&apos;re a smallholder farmer, large-scale processor,
+            agro-exporter, or a member of the African diaspora, this is your
+            digital hub to buy, sell, grow, and invest in agriculture—smarter.
           </p>
         </div>
         <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base/7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -187,10 +176,10 @@ function Features() {
 function CTA() {
   return (
     <div className="bg-white">
-      <div className="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
-        <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 text-center shadow-2xl sm:rounded-3xl sm:px-16">
+      <div className="mx-auto max-w-7xl pb-24 pt-8 sm:px-6 sm:pb-32 sm:pt-10 lg:px-8">
+        <div className="relative isolate overflow-hidden bg-primary-950 px-6 py-24 text-center shadow-2xl sm:rounded-3xl sm:px-16">
           <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
-            Join the Revolution
+            Harvest the Future
           </h2>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link
@@ -231,7 +220,7 @@ function CTA() {
   );
 }
 
-export default async function Home() {
+export default async function HomePage() {
   const user: User | null = await getUser();
   return (
     <MainLayout user={user}>

@@ -180,9 +180,12 @@ export default function MainLayout({
                   </DropdownMenu>
                 </Dropdown>
               ) : (
-                <NavbarItem href="/auth/signin">
-                  Log in <span aria-hidden="true">&rarr;</span>
-                </NavbarItem>
+                <Link
+                  href="/auth/signin"
+                  className="rounded-md bg-primary-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600"
+                >
+                  Log In
+                </Link>
               )}
             </NavbarSection>
           </Navbar>

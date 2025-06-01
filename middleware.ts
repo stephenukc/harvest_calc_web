@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedRoutes = [
-  "/dashboard/home",
+  "/dashboard",
   "dashboard/profile",
+  "dashboard/farms",
+  "dashboard/marketplace",
   "/dashboard/create-business",
   "/dashboard/create-individual",
   "/dashboard/create-farmer",

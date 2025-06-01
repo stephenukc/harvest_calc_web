@@ -210,7 +210,7 @@ async function Pagination({ page, tag }: { page: number; tag?: string }) {
   );
 }
 
-export default async function Blog(props: {
+export default async function BlogPage(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const searchParams = await props.searchParams;
