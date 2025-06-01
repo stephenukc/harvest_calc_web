@@ -48,7 +48,7 @@ import React, { useState } from "react";
 
 const logoDropdownNav = [
   { label: "Home", url: "/", icon: HomeIcon },
-  { label: "Company", url: "/company", icon: UserGroupIcon },
+  { label: "About Us", url: "/about-us", icon: UserGroupIcon },
   { label: "Blog", url: "/blog", icon: NewspaperIcon },
   { label: "Contact", url: "/contact", icon: ChatBubbleLeftRightIcon },
 ];

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   motion,
@@ -6,28 +6,34 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-} from 'framer-motion'
-import { useEffect, useRef } from 'react'
+} from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export function AnimatedNumber({
   start,
   end,
   decimals = 0,
 }: {
-  start: number
-  end: number
-  decimals?: number
+  start: number;
+  end: number;
+  decimals?: number;
 }) {
-  let ref = useRef(null)
-  let isInView = useInView(ref, { once: true, amount: 0.5 })
+  let ref = useRef(null);
+  let isInView = useInView(ref, { once: true, amount: 0.5 });
 
-  let value = useMotionValue(start)
-  let spring = useSpring(value, { damping: 30, stiffness: 100 })
-  let display = useTransform(spring, (num) => num.toFixed(decimals))
+  let value = useMotionValue(start);
+  let spring = useSpring(value, { damping: 30, stiffness: 100 });
+
+  let display = useTransform(spring, (num) => {
+    const fixedNum = num.toFixed(decimals);
+    const parts = fixedNum.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  });
 
   useEffect(() => {
-    value.set(isInView ? end : start)
-  }, [start, end, isInView, value])
+    value.set(isInView ? end : start);
+  }, [start, end, isInView, value]);
 
-  return <motion.span ref={ref}>{display}</motion.span>
+  return <motion.span ref={ref}>{display}</motion.span>;
 }

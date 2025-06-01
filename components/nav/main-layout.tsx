@@ -33,7 +33,7 @@ import {
 
 const navigation = [
   { label: "Home", url: "/" },
-  { label: "Company", url: "/company" },
+  { label: "About Us", url: "/about-us" },
   { label: "Blog", url: "/blog" },
   { label: "Contact", url: "/contact" },
 ];

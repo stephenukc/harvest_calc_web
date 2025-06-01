@@ -76,7 +76,7 @@ function Hero() {
               Get started
             </Link>
             <Link
-              href="/company"
+              href="/about-us"
               className="text-sm/6 font-semibold text-gray-50"
             >
               Learn more <span aria-hidden="true">→</span>
@@ -189,7 +189,7 @@ function CTA() {
               Get started
             </Link>
             <Link
-              href="/company"
+              href="/about-us"
               className="text-sm/6 font-semibold text-white"
             >
               Learn more <span aria-hidden="true">→</span>

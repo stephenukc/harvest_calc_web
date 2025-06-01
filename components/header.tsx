@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navigation = [
-  { name: "Company", href: "/company" },
+  { name: "About Us", href: "/about-us" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
