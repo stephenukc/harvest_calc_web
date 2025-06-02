@@ -227,11 +227,11 @@ export default async function BlogPage(props: {
     <>
       <Subheading className="mt-16">Blog</Subheading>
       <Heading as="h1" className="mt-2">
-        What&apos;s happening at HarvestCalc.
+        Seeds of Insight and Learning
       </Heading>
       <Lead className="mt-6 max-w-3xl">
-        Stay informed with product updates, company news, and insights on how to
-        improve your agricultural practices.
+        Stories, strategies, and innovations transforming African agriculture —
+        one field at a time.
       </Lead>
       <Tags selected={selectedTag} />
       <Posts page={page} tag={selectedTag} />

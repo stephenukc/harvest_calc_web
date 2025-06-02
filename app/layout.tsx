@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Powering the future of agriculture.",
 };
 
-export default function RootLayout({
+export default function RootPagesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

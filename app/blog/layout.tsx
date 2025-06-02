@@ -1,9 +1,9 @@
-import { Container } from "@/components/container";
-import MainLayout from "@/components/nav/main-layout";
-import React from "react";
 import { getUser } from "@/app/lib/dal";
+import { Container } from "@/components/container";
+import MainLayout from "@/components/layout/main-layout";
+import React from "react";
 
-export default async function BlogLayout({
+export default async function BlogPagesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

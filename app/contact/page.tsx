@@ -1,5 +1,5 @@
 import { getUser } from "@/app/lib/dal";
-import MainLayout from "@/components/nav/main-layout";
+import MainLayout from "@/components/layout/main-layout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

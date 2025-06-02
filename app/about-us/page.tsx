@@ -1,7 +1,7 @@
 import { getUser } from "@/app/lib/dal";
 import { AnimatedNumber } from "@/components/animated-number";
 import { Container } from "@/components/container";
-import MainLayout from "@/components/nav/main-layout";
+import MainLayout from "@/components/layout/main-layout";
 import { Heading, Lead, Subheading } from "@/components/text";
 import about1 from "@/public/images/about-1.jpg";
 import about2 from "@/public/images/about-2.jpg";

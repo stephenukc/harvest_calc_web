@@ -1,6 +1,6 @@
 import { getUser } from "@/app/lib/dal";
+import MainLayout from "@/components/layout/main-layout";
 import { Link } from "@/components/link";
-import MainLayout from "@/components/nav/main-layout";
 import hero from "@/public/images/hero.jpg";
 import {
   BanknotesIcon,
